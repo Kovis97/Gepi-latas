@@ -11,7 +11,7 @@ a dobókockák darabszámát is jelezze ki.
 import numpy as np
 import cv2
 
-I = cv2.imread("10.jpg")
+I = cv2.imread("15.jpg")
 
 # kép átméretezése a képerynőn való megjeleníthetőség kedvéért
 print(I.shape)
@@ -31,27 +31,31 @@ k = np.ones((3, 3))
 I_z = cv2.morphologyEx(I_szurke, cv2.MORPH_CLOSE, k)
 I_mz = cv2.morphologyEx(I_median, cv2.MORPH_CLOSE, k)
 
-mini = 220
+mini = 250
 maxi = 255
-I_derivalt = cv2.Canny(I_z, mini, maxi)
-I_derivalt = cv2.blur(I_derivalt, (5,5))
+#I_derivalt = cv2.Canny(I_z, mini, maxi)
 I_derivalt1 = cv2.Canny(I_median, mini, maxi)
+I_derivalt1 = cv2.blur(I_derivalt1, (2, 2))
 I_derivalt2 = cv2.Canny(I_mz, mini, maxi)
+I_derivalt2 = cv2.blur(I_derivalt2, (2, 2))
 
-'''# Sarok detektálás a Harris módszerrel.
+I[I_derivalt1 > 0] = np.array((255,0,0))
+
+"""
+# Sarok detektálás a Harris módszerrel.
 # Bővebben: https://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#gac1fc3598018010880e370e2f709b4345
-E = cv2.cornerHarris(I_derivalt.astype(np.float32), 5, 5, 0.1)
+E = cv2.cornerHarris(I_derivalt1.astype(np.float32), 5, 5, 0.1)
 
 
 # Ahol E értéke nagyobb, mint a maximumának a 0,01-szerese, ott az I értéke legyen (0, 0, 255). 
-I_derivalt[E > E.max() * 0.01] = np.array((150))'''
-
+I[E > E.max() * 0.01] = np.array((255,0,0))
+"""
 
 #cv2.imshow("I_szurke", I_szurke)
 #cv2.imshow("I_median", I_median)
 cv2.imshow("I", I)
 #cv2.imshow("I_z", I_z)
-cv2.imshow("I_derivalt I_z", I_derivalt)
+#cv2.imshow("I_derivalt I_z", I_derivalt)
 cv2.imshow("I_derivalt1 I_median", I_derivalt1)
 cv2.imshow("I_derivalt2 I_mz", I_derivalt2)
 
