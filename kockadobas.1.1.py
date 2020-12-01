@@ -11,7 +11,7 @@ a dobókockák darabszámát is jelezze ki.
 import numpy as np
 import cv2
 
-I = cv2.imread("04.jpg")
+I = cv2.imread("01.jpg")
 I_k = I
 
 # kép átméretezése a vizsgálathoz, hogy a dobokocka pottyei kozel azonosak legyenek
@@ -40,7 +40,7 @@ maxi = 255
 rows = I_median.shape[0]
 circles = cv2.HoughCircles(I_median, cv2.HOUGH_GRADIENT, 1, rows / 100,
                            param1=245, param2=24 ,
-                           minRadius=1, maxRadius=60)
+                           minRadius=1, maxRadius=50)
 korok =0
 if circles is not None:
     circles = np.uint16(np.around(circles))
