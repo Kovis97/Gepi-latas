@@ -69,12 +69,6 @@ for i in range(12):
 
     I_szurke = cv2.cvtColor(I.astype(np.uint8), cv2.COLOR_BGR2GRAY)
 
-
-    # Struktúráló elem
-    k = np.ones((6, 6))
-
-    # Morfológiai zárás. Az apró hibákat eltünteti az objektum felületén.
-    I_median = cv2.morphologyEx(I_szurke, cv2.MORPH_CLOSE, k)
     I_median = cv2.medianBlur(I_szurke, 7)
 
     mini = 240
@@ -106,6 +100,8 @@ for i in range(12):
     y = x
 
     I_k = cv2.resize(I_k, None, None, x, y, cv2.INTER_CUBIC)
+    x = 500 / I_median.shape[0]
+    y = x
 
     I_median = cv2.resize(I_median, None, None, x, y, cv2.INTER_LINEAR)
 
@@ -114,7 +110,7 @@ for i in range(12):
     cv2.putText(I_k,text,(10,30),0,1,(0,255,0), 4, cv2.LINE_AA)
 
     cv2.imshow("detected circles", I_k)
-    #cv2.imshow("I_median", I_median)
+    cv2.imshow("I_median", I_median)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 

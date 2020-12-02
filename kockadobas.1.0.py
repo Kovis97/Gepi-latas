@@ -5,7 +5,7 @@ a dobókockák darabszámát is jelezze ki.
 '''
 '''
     A feladat megoldásánál abból indultam ki, hogy minden dobókocka
-    fehér
+    világos színű
 '''
 
 import numpy as np
