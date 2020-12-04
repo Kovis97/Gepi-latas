@@ -11,11 +11,11 @@ a dobókockák darabszámát is jelezze ki.
 import numpy as np
 import cv2
 
-I = cv2.imread("01.jpg")
+I = cv2.imread("12.jpg")
 I_k = I
 
 # kép átméretezése a vizsgálathoz, hogy a dobokocka pottyei kozel azonosak legyenek
-# Ezzel csak azt lehet kiküszöbölni, hogy azonos távolságból, de más felbontással
+# Ezzel szeretném kiküszöbölni, hogy azonos távolságból, de más felbontással
 # készült képeken is mukodjon
 print(I.shape)
 
@@ -33,13 +33,13 @@ k = np.ones((3, 3))
 # Morfológiai zárás. Az apró hibákat eltünteti az objektum felületén.
 I_median = cv2.morphologyEx(I_median, cv2.MORPH_CLOSE, k)
 
-mini = 250
-maxi = 255
+#mini = 250
+#maxi = 255
 #I_derivalt = cv2.Canny(I_median, mini, maxi)
 
 rows = I_median.shape[0]
 circles = cv2.HoughCircles(I_median, cv2.HOUGH_GRADIENT, 1, rows / 100,
-                           param1=245, param2=24 ,
+                           param1=240, param2=24,
                            minRadius=1, maxRadius=50)
 korok =0
 if circles is not None:
@@ -111,7 +111,7 @@ I_median = cv2.resize(I_median, None, None, x, y, cv2.INTER_LINEAR)
 text = 'Ossz.: ' + str(korok) + ' Kocka(k): ' + str(kocka)            
 cv2.putText(I_k,text,(10,30),0,1,(0,255,0), 4, cv2.LINE_AA)
 
-cv2.imshow("detected circles", I_k)
 cv2.imshow("I_median", I_median)
+cv2.imshow("detected circles", I_k)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
