@@ -102,6 +102,9 @@ y = x
 
 I_k = cv2.resize(I_k, None, None, x, y, cv2.INTER_CUBIC)
 
+x = 500 / I_median.shape[0]
+y = x
+
 I_median = cv2.resize(I_median, None, None, x, y, cv2.INTER_LINEAR)
 
 #Eredmeny kiiratasa
@@ -109,6 +112,6 @@ text = 'Ossz.: ' + str(korok) + ' Kocka(k): ' + str(kocka)
 cv2.putText(I_k,text,(10,30),0,1,(0,255,0), 4, cv2.LINE_AA)
 
 cv2.imshow("detected circles", I_k)
-#cv2.imshow("I_median", I_median)
+cv2.imshow("I_median", I_median)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

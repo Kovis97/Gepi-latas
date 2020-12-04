@@ -69,6 +69,12 @@ for i in range(12):
 
     I_szurke = cv2.cvtColor(I.astype(np.uint8), cv2.COLOR_BGR2GRAY)
 
+
+    # Struktúráló elem
+    k = np.ones((6, 6))
+
+    # Morfológiai zárás. Az apró hibákat eltünteti az objektum felületén.
+    I_median = cv2.morphologyEx(I_szurke, cv2.MORPH_CLOSE, k)
     I_median = cv2.medianBlur(I_szurke, 7)
 
     mini = 240
