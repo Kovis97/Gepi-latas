@@ -11,23 +11,23 @@ a dobókockák darabszámát is jelezze ki.
 import numpy as np
 import cv2
 
-for i in range(12):
-    if i+1<10:
-         I = cv2.imread('0' + str(i+1) + '.jpg')
+for kep in range(16):
+    if kep+1<10:
+         I = cv2.imread('0' + str(kep+1) + '.jpg')
     else:
-         I = cv2.imread(str(i+1) + '.jpg') 
-
-    I_k = I
+         I = cv2.imread(str(kep+1) + '.jpg')
+    
 
     # kép átméretezése a vizsgálathoz, hogy a dobokocka pottyei kozel azonosak legyenek
     # Ezzel szeretném kiküszöbölni, hogy azonos távolságból, de más felbontással
     # készült képeken is mukodjon
     #print(I.shape)
 
-    x = 2000 / I_k.shape[0]
+    x = 2000 / I.shape[0]
     y = x
 
-    I_k = cv2.resize(I_k, None, None, x, y, cv2.INTER_CUBIC)
+    I = cv2.resize(I, None, None, x, y, cv2.INTER_CUBIC)
+    I_k = I
 
     I_szurke = cv2.cvtColor(I_k.astype(np.uint8), cv2.COLOR_BGR2GRAY)
 
@@ -117,7 +117,7 @@ for i in range(12):
     cv2.putText(I_k,text,(10,30),0,1,(0,255,0), 4, cv2.LINE_AA)
 
     cv2.imshow("I_median", I_median)
-    cv2.imshow("detected circles", I_k)
+    cv2.imshow("detected circles " + str(kep + 1)+ '.jpg', I_k)
     if cv2.waitKey(0) == 113:
         break
     cv2.destroyAllWindows()
