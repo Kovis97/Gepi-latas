@@ -1,3 +1,4 @@
+dirname = './kepek'     # eleresi utvonal
 '''
 Dobókocka számláló alkalmazás: Bármilyen fényviszony és háttér előtt
 képes legyen megszámlálni maximum 4 db dobókocka összértékét illetve
@@ -13,9 +14,9 @@ import cv2
 import os
 
 def megjelenit(kep):
-    kepe = cv2.haveImageReader(kep) #le ellenorizuk, hogy megfelel-e cv2-nek, nehogy egy mappa nevet kapjunk
+    kepe = cv2.haveImageReader(kep) #le ellenorizuk, hogy egy kep utvolat kaptuk-e meg
     if (not kepe):
-        print('\tEz nem kep')
+        print(str(kep) + ':\tEz nem kep!')
     else:
         eredmeny = vizsgal(kep,1)   # az elso parameter a kepet adja at, a masodik a képek megjeleniteset engedelyezi
         print(kep)     # eredmeny: kor, kocka, waitKey(0) erteke
@@ -25,13 +26,12 @@ def megjelenit(kep):
 
 
 
-print("Kérem adja meg a kep elérési útvonalát,\nkülönben ./kepek mappa tartalma jelenik meg:")
+print("Kérem adja meg a kep elérési útvonalát,\nkülönben ./kepek mappa tartalma jelenik meg,\nez esetben a 'q' lenyomásával kiléphet:")
 utvonal = input()
 
 if utvonal:
     megjelenit(utvonal)
 else:
-    dirname = './kepek'     # eleresi utvonal
     dirlist = os.scandir(dirname)   # fajlok, es mappak listazasa mappából
     for e in dirlist:   # vegig iteralunk a neveken
         utvonal = dirname + '/'+ e.name # teljes eleres
