@@ -54,3 +54,6 @@ for e in dirlist:   # vegig iteralunk a neveken
         if eredmeny[3] == 113: # q -re kilepunk a kepek feldolgozasabol
             break
         cv2.destroyAllWindows()
+f.close()
+if uj:
+    b.close()
